@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         // 2. Get response and data
         // 3. Process the data (Parsing and JSON serialization)
         
+        // Step 1
         let url = URL(string: "http://data.fixer.io/api/latest?access_key=6d65c43a0197cba95ac4cc1200f0f6ab")
         
         let session = URLSession.shared
@@ -40,15 +41,28 @@ class ViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 
             }else {
-                
+          // step 2
+                if data != nil{
+                    do{
+                        var jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                    
+                        // ASYNC
+                        DispatchQueue.main.async {
+                            print(jsonResponse)
+                        }
+                        
+                        
+                    } catch{
+                        print("error")
+                    }
+                    
+                }
+             
             }
          
-            
         }
         
-        
-        
-        
+        task.resume()
         
         
         
