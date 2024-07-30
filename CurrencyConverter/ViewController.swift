@@ -44,11 +44,56 @@ class ViewController: UIViewController {
           // step 2
                 if data != nil{
                     do{
-                        var jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, Any>
                     
                         // ASYNC
                         DispatchQueue.main.async {
-                            print(jsonResponse)
+                            let formatter = NumberFormatter()
+                            formatter.maximumFractionDigits = 3
+                            formatter.minimumFractionDigits = 3
+                            
+                            if let rates = jsonResponse["rates"] as? [String : Any]{
+
+                                if let cad = rates["CAD"] as? Double{
+                                    if let cadFormatted = formatter.string(for: cad){
+                                        self.cadLabel.text = "CAD: \(cadFormatted)"
+                                    }
+                                    
+                                }
+                               
+                                if let chf = rates["CHF"] as? Double{
+                                    if let chfFormatted = formatter.string(for: chf){
+                                        self.chfLabel.text = "CHF: \(chfFormatted)"
+                                    }
+                                }
+                                
+                                if let gbp = rates["GBP"] as? Double{
+                                    if let gbpFormatted = formatter.string(for: gbp){
+                                        self.gbpLabel.text = "GBP: \(gbpFormatted)"
+                                    }
+                                }
+                                
+                                if let jpy = rates["JPY"] as? Double{
+                                    if let jpyFormatted = formatter.string(for: jpy){
+                                        self.jpyLabel.text = "JPY: \(jpyFormatted)"
+                                    }
+                                }
+                                
+                                if let usd = rates["USD"] as? Double{
+                                    if let usdFormatted = formatter.string(for: usd){
+                                        self.usdLabel.text = "USD: \(usdFormatted)"
+                                    }
+                                }
+                                
+                                if let turk = rates["TRY"] as? Double{
+                                    if let turkFormatted = formatter.string(for: turk){
+                                        self.tryLabel.text = "TRY: \(turkFormatted)"
+                                    }
+                                }
+                                
+                            }
+                            
+                            
                         }
                         
                         
